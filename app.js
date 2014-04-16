@@ -8,7 +8,7 @@ dotenv.load();
 
 var fb_client_id = process.env.client_id;
 var fb_client_secret = process.env.client_secret;
-var fb_scope = "email, user_about_me, user_likes, user_birthday, publish_actions, user_status";
+var fb_scope = process.env.scope_permission;
 var fb_redirect_url = process.env.redirect_url;
 var token;
 var graph = require('fbgraph');
