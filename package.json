@@ -14,7 +14,10 @@
     "passport-facebook": "*",
     "passport-twitter": "*",
     "dotenv": "*",
-    "fbgraph": "*"
+    "fbgraph": "*",
+    "twit": "*",
+    "util": "*",
+    "oauth": "*"
   },
   "engines": {
     "node": "0.10.x"

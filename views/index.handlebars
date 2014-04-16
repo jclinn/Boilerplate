@@ -22,6 +22,7 @@
         <h1>ChatterBot</h1>
         <p>{{title}}</p>
         <button onclick="fbLogin()" class="btn btncolor">{{button}}</button>
+        <button onclick="twitLogin()" class="btn btncolor">{{twitbutton}}</button>
         <p>Logged in as: {{name}}</p>
         <h4>Most recent status updates: </h4>
         <div id="wrapper" >
@@ -42,6 +43,9 @@
     <script>
       function fbLogin() {
         window.location.href = "/auth/facebook";
+      }
+      function twitLogin() {
+        window.location.href = "/auth/twitter";
       }
     </script>
     <script src="https://code.jquery.com/jquery.js"></script>
