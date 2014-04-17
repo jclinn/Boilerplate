@@ -206,6 +206,12 @@ app.get('/auth/twitter/callback',
     res.redirect('/tweets');
   });
 
+app.post('/auth/twitter/callback', 
+  passport.authenticate('twitter', { failureRedirect: '/index' }),
+  function(req, res) {
+    res.redirect('/tweets');
+  });
+
 var tweetsData = {};
 app.get('/tweets', function(err, res){
   T.get('statuses/user_timeline', {}, function(err, item) {
@@ -215,6 +221,14 @@ app.get('/tweets', function(err, res){
   	res.render("index", {twitbutton: 'LOGGED IN TWITTER', tweets_list: item, button: 'LOGIN TO FACEBOOK'});
   })});
 
+
+app.post('/tweets', function(err, res){
+  T.get('statuses/user_timeline', {}, function(err, item) {
+    //console.log(err, item);
+    //console.log("data: " + item[0].text);
+  //tweetsData = item;
+    res.render("index", {twitbutton: 'LOGGED IN TWITTER', tweets_list: item, button: 'LOGIN TO FACEBOOK'});
+  })});
 
 app.get('/logout', function(req, res){
   req.logout();
