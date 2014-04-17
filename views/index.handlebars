@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>ChatterBot</title>  
+  <title>StatusMash</title>  
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -19,11 +19,12 @@
 
 <body>
       <div class="container">
-        <h1>ChatterBot</h1>
+        <h1>StatusMash</h1>
         <p>{{title}}</p>
         <button onclick="fbLogin()" class="btn btncolor">{{button}}</button>
         <button onclick="twitLogin()" class="btn btncolor">{{twitbutton}}</button>
         <p>Logged in as: {{name}}</p>
+        <hr>
         <h4>Most recent status updates: </h4>
         <div id="wrapper" >
           
@@ -31,7 +32,7 @@
               <p>{{message}}</p>
           {{/each}}
        </div>
-       <break>
+       <hr>
        <h4>Most recent Likes: </h4>
       <div id="wrapper" >
           
@@ -39,7 +40,7 @@
               <p>{{name}}</p>
           {{/each}}
        </div>
-    </div>
+    <hr>
      <h4>Most recent Tweets: </h4>
       <div id="wrapper" >
           

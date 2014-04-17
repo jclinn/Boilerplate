@@ -128,7 +128,8 @@ app.get('/sessions/connect', function(req, res){
 passport.use(new TwitterStrategy({
     consumerKey: 'M5fthvJjAiMD0ka4MaTOCcJ33',
     consumerSecret: 'DMkGty3P3VXtja20UJpfKmh5CxKR51QrBJrzLsxYllnkFQhSS2',
-    callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
+    //callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
+    callbackURL: "http://statusmash.herokuapp.com/auth/twitter/callback"
   },
   function(token, tokenSecret, profile, done) {
     // asynchronous verification, for effect...
@@ -170,14 +171,10 @@ app.get('/auth/twitter/callback',
 var tweetsData = {};
 app.get('/tweets', function(err, res){
   T.get('statuses/user_timeline', {}, function(err, item) {
-  	console.log(err, item);
-  	console.log("data: " + item[0].text);
-  	/*for( var i = 0; i < res.data.length; i++) {
-			console.log("object: " + res.data[i].message);
-			
-	}*/
+  	//console.log(err, item);
+  	//console.log("data: " + item[0].text);
 	tweetsData = item;
-  	res.render("index", {tweets_list: item});
+  	res.render("index", {twitbutton: 'LOGGED IN TWITTER', tweets_list: item, button: 'LOGIN TO FACEBOOK'});
   })});
 
 
@@ -240,11 +237,12 @@ app.get('/UserHasLoggedIn', function(req, res) {
 app.get('/pull', function(err, res) {
 setTimeout(function() { // allow callbacks to return from asynchronous call
 	  res.render("index", { title: "Logged In", 
-  						button: "LOG OUT OF FACEBOOK", 
+  						button: "LOGGED ON FB", 
   						status_list: dataOutside.data, 
   						name: fbName,
-  						likes_list: fbLikes.data });
-	  }, 10000);
+  						likes_list: fbLikes.data,
+              twitbutton: 'LOG INTO TWITTER' });
+	  }, 1000);
 });
 
 
