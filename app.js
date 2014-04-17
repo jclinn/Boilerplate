@@ -195,6 +195,13 @@ app.get('/auth/twitter',
     // function will not be called.
   });
 
+app.post('/auth/twitter',
+  passport.authenticate('twitter'),
+  function(req, res){
+    // The request will be redirected to Twitter for authentication, so this
+    // function will not be called.
+  });
+
 // GET /auth/twitter/callback
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  If authentication fails, the user will be redirected back to the
