@@ -71,6 +71,41 @@ app.get('/', index.view);
 app.post('/*', function(request, response) {
   response.redirect('/');
 });
+app.post('/auth/facebook', function(req, res) {
+
+  // we don't have a code yet
+  // so we'll redirect to the oauth dialog
+  if (!req.query.code) {
+    var authUrl = graph.getOauthUrl({
+        "client_id":     conf.client_id
+      , "redirect_uri":  conf.redirect_uri
+      , "scope":         conf.scope
+    });
+
+    if (!req.query.error) { //checks whether a user denied the app facebook login/permissions
+      res.redirect(authUrl);
+    } else {  //req.query.error == 'access_denied'
+      res.send('access denied');
+    }
+    return;
+  }
+
+
+// code is set
+  // we'll send that and get the access token
+  graph.authorize({
+      "client_id":      conf.client_id
+    , "redirect_uri":   conf.redirect_uri
+    , "client_secret":  conf.client_secret
+    , "code":           req.query.code
+  }, function (err, facebookRes) {
+    //console.log("auth code: " + req.query.code);
+    token = req.query.code;
+    res.redirect('/UserHasLoggedIn');
+  });
+
+
+});
 
 app.get('/auth/facebook', function(req, res) {
 
@@ -246,6 +281,61 @@ setTimeout(function() { // allow callbacks to return from asynchronous call
   						likes_list: fbLikes.data,
               twitbutton: 'LOG INTO TWITTER' });
 	  }, 1000);
+});
+
+
+app.post('/UserHasLoggedIn', function(req, res) {
+  token = graph.getAccessToken();
+  //console.log(" access token: " + token);
+
+  //get basic user info
+  graph.get("/me", function(err, res) {
+    //console.log("name: " + res.name);
+    fbName = res.name;
+  })
+
+  //console.log("fbname outside: " + fbName);
+
+  //get fb status
+  graph.get("/me/statuses?fields=message", function(err, res) {
+    //console.log(res);
+    //statusData = res;
+    //console.log("length: " + res.data.length);
+    for( var i = 0; i < res.data.length; i++) {
+      //console.log("object: " + res.data[i].message);
+      statusData[i] = res.data[i].message;
+    }
+  //  console.log(" statusDAta: " + statusData[0]);
+    dataOutside = res;
+  });
+  //console.log(" statusDAta: " + statusData[0]);
+  //statusData[0] = "Why you don't work?";
+  //console.log(" statusDAta: " + statusData[0]);
+  //console.log(" status Outside: " + dataOutside.data[0].message);
+  //res.render("index", data: 'data');
+
+  // get fb likes)
+  graph.get("/me/likes", function(err, res) {
+    //console.log(res);
+    fbLikes = res;
+    //console.log("fb likes: " + fbLikes.data[0].name);
+  });
+  //console.log("fb likes outside " + fbLikes);
+  //console.log("fb likes example outside " + fbLikes.data[0].name);
+  res.redirect('/pull');
+});
+
+//console.log("token value: " + token);
+
+app.post('/pull', function(err, res) {
+setTimeout(function() { // allow callbacks to return from asynchronous call
+    res.render("index", { title: "Logged In", 
+              button: "LOGGED ON FB", 
+              status_list: dataOutside.data, 
+              name: fbName,
+              likes_list: fbLikes.data,
+              twitbutton: 'LOG INTO TWITTER' });
+    }, 1000);
 });
 
 
