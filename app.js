@@ -154,7 +154,7 @@ app.get('/auth/twitter',
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirectedect the user to the home page.
 app.get('/auth/twitter/callback', 
-  passport.auththenticate('twitter', { failureRedirect: '/index' }),
+  passport.authenticate('twitter', { failureRedirect: '/index' }),
   function(req, res) {
     console.log("authentication")
     res.redirect('/tweets');
