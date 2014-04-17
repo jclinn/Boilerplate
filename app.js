@@ -120,7 +120,7 @@ app.get('/sessions/connect', function(req, res){
 passport.use(new TwitterStrategy({
     consumerKey: 'M5fthvJjAiMD0ka4MaTOCcJ33',
     consumerSecret: 'DMkGty3P3VXtja20UJpfKmh5CxKR51QrBJrzLsxYllnkFQhSS2',
-    callbackURL: " http://127.0.0.1:3000/auth/twitter"
+    callbackURL: " http://statusmash.herokuapp.com/auth/twitter"
   },
   function(token, tokenSecret, profile, done) {
     // asynchronous verification, for effect...
@@ -152,9 +152,9 @@ app.get('/auth/twitter',
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  If authentication fails, the user will be redirected back to the
 //   login page.  Otherwise, the primary route function function will be called,
-//   which, in this example, will redirect the user to the home page.
+//   which, in this example, will redirectedect the user to the home page.
 app.get('/auth/twitter/callback', 
-  passport.authenticate('twitter', { failureRedirect: '/login' }),
+  passport.auththenticate('twitter', { failureRedirect: '/index' }),
   function(req, res) {
     console.log("authentication")
     res.redirect('/tweets');
