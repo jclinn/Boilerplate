@@ -68,7 +68,7 @@ passport.deserializeUser(function(user, done) {
 
 //routes
 app.get('/', index.view);
-app.post('/*', function(request, response) {
+app.post('/', function(request, response) {
   response.redirect('/');
 });
 app.post('/auth/facebook', function(req, res) {
