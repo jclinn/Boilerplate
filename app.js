@@ -164,12 +164,20 @@ app.get('/auth/twitter',
 app.get('/auth/twitter/callback', 
   passport.authenticate('twitter', { failureRedirect: '/index' }),
   function(req, res) {
-    res.redirect('/');
+    res.redirect('/tweets');
   });
 
+var tweetsData = {};
 app.get('/tweets', function(err, res){
-  T.get('statuses/home_timeline', {screen_name: '_lynnnhuvo'}, function(err, item) {
-  console.log(err, item);
+  T.get('statuses/user_timeline', {}, function(err, item) {
+  	console.log(err, item);
+  	console.log("data: " + item[0].text);
+  	/*for( var i = 0; i < res.data.length; i++) {
+			console.log("object: " + res.data[i].message);
+			
+	}*/
+	tweetsData = item;
+  	res.render("index", {tweets_list: item});
   })});
 
 

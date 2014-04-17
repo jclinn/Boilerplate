@@ -40,6 +40,14 @@
           {{/each}}
        </div>
     </div>
+     <h4>Most recent Tweets: </h4>
+      <div id="wrapper" >
+          
+          {{#each tweets_list}}
+              <p>{{text}}</p>
+          {{/each}}
+       </div>
+    </div>
     <script>
       function fbLogin() {
         window.location.href = "/auth/facebook";
