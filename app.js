@@ -52,11 +52,19 @@ app.set('view engine', 'handlebars');
 app.set('views', __dirname + '/views');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.bodyParser());
-app.use(express.cookieParser())
-app.use(express.session({ secret: 'keyboard cat' , key: 'sid', cookie: {secure: true}}));
-app.use(app.router);
+app.use(express.cookieParser("keyboard cat"));
+app.use(express.session({ secret: 'keyboard cat'}));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(app.router);
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
 
 //routes
 app.get('/', index.view);
@@ -120,7 +128,7 @@ app.get('/sessions/connect', function(req, res){
 passport.use(new TwitterStrategy({
     consumerKey: 'M5fthvJjAiMD0ka4MaTOCcJ33',
     consumerSecret: 'DMkGty3P3VXtja20UJpfKmh5CxKR51QrBJrzLsxYllnkFQhSS2',
-    callbackURL: " http://statusmash.herokuapp.com/auth/twitter"
+    callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
   },
   function(token, tokenSecret, profile, done) {
     // asynchronous verification, for effect...
@@ -156,8 +164,7 @@ app.get('/auth/twitter',
 app.get('/auth/twitter/callback', 
   passport.authenticate('twitter', { failureRedirect: '/index' }),
   function(req, res) {
-    console.log("authentication")
-    res.redirect('/tweets');
+    res.redirect('/');
   });
 
 app.get('/tweets', function(err, res){
