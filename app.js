@@ -32,7 +32,7 @@ var Twit = require('twit');
 var T = new Twit({
     consumer_key:         'M5fthvJjAiMD0ka4MaTOCcJ33'
   , consumer_secret:      'DMkGty3P3VXtja20UJpfKmh5CxKR51QrBJrzLsxYllnkFQhSS2'
-  , access_token:         '149544878-RJLfEPqhdm48g9Yj9gcuyqAoHixFMEgsiBLDoWZa'
+    , access_token:         '149544878-RJLfEPqhdm48g9Yj9gcuyqAoHixFMEgsiBLDoWZa'
   , access_token_secret:  '07VT9qkRJwuXLRar5ibVLTcK03jfPWNmJTYjVcl6KK0Ci'
 });
 
@@ -116,10 +116,11 @@ app.get('/sessions/connect', function(req, res){
 });
 */
 
+
 passport.use(new TwitterStrategy({
     consumerKey: 'M5fthvJjAiMD0ka4MaTOCcJ33',
     consumerSecret: 'DMkGty3P3VXtja20UJpfKmh5CxKR51QrBJrzLsxYllnkFQhSS2',
-    callbackURL: "http://statusmash.herokuapp.com/auth/twitter/callback"
+    callbackURL: " http://127.0.0.1:3000/auth/twitter"
   },
   function(token, tokenSecret, profile, done) {
     // asynchronous verification, for effect...
@@ -155,8 +156,15 @@ app.get('/auth/twitter',
 app.get('/auth/twitter/callback', 
   passport.authenticate('twitter', { failureRedirect: '/login' }),
   function(req, res) {
-    res.redirect('/');
+    console.log("authentication")
+    res.redirect('/tweets');
   });
+
+app.get('/tweets', function(err, res){
+  T.get('statuses/home_timeline', {screen_name: '_lynnnhuvo'}, function(err, item) {
+  console.log(err, item);
+  })});
+
 
 app.get('/logout', function(req, res){
   req.logout();
@@ -169,6 +177,7 @@ var statusData = {};
 var dataOutside = {};
 var fbName = "Not Logged In";
 var fbLikes = {};
+var tweets = {};
 // user gets sent here after being authorized
 app.get('/UserHasLoggedIn', function(req, res) {
 	token = graph.getAccessToken();
@@ -224,17 +233,6 @@ setTimeout(function() { // allow callbacks to return from asynchronous call
 });
 
 
-app.get('/auth/twitter',
-  passport.authenticate('twitter'));
-
-app.get('/auth/twitter/callback', 
-  passport.authenticate('twitter', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    console.log("authentication");
-    //res.redirect('/');
-  });
-
 /*app.get('/tweet', function(err, res) {
 	T.get('search/tweets', { q: 'banana since:2011-11-11', count: 100 }, function(err, reply) {
         console.log("banana tweets: " + reply);
@@ -245,5 +243,5 @@ app.get('/auth/twitter/callback',
 //set environment ports and start application
 app.set('port', process.env.PORT || 3000);
 http.createServer(app).listen(app.get('port'), function(){
-	console.log('Express server listening on port ' + app.get('port'));
-});
+	console.log('Express seterver listening on port ' + app.get('port'));
+});    
