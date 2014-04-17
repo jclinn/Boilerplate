@@ -52,11 +52,19 @@ app.set('view engine', 'handlebars');
 app.set('views', __dirname + '/views');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.bodyParser());
-app.use(express.cookieParser())
-app.use(express.session({ secret: 'keyboard cat' , key: 'sid', cookie: {secure: true}}));
-app.use(app.router);
+app.use(express.cookieParser("keyboard cat"));
+app.use(express.session({ secret: 'keyboard cat'}));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(app.router);
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
 
 //routes
 app.get('/', index.view);
@@ -120,7 +128,7 @@ app.get('/sessions/connect', function(req, res){
 passport.use(new TwitterStrategy({
     consumerKey: 'M5fthvJjAiMD0ka4MaTOCcJ33',
     consumerSecret: 'DMkGty3P3VXtja20UJpfKmh5CxKR51QrBJrzLsxYllnkFQhSS2',
-    callbackURL: " http://127.0.0.1:3000/auth/twitter"
+    callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
   },
   function(token, tokenSecret, profile, done) {
     // asynchronous verification, for effect...
@@ -152,17 +160,24 @@ app.get('/auth/twitter',
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  If authentication fails, the user will be redirected back to the
 //   login page.  Otherwise, the primary route function function will be called,
-//   which, in this example, will redirect the user to the home page.
+//   which, in this example, will redirectedect the user to the home page.
 app.get('/auth/twitter/callback', 
-  passport.authenticate('twitter', { failureRedirect: '/login' }),
+  passport.authenticate('twitter', { failureRedirect: '/index' }),
   function(req, res) {
-    console.log("authentication")
     res.redirect('/tweets');
   });
 
+var tweetsData = {};
 app.get('/tweets', function(err, res){
-  T.get('statuses/home_timeline', {screen_name: '_lynnnhuvo'}, function(err, item) {
-  console.log(err, item);
+  T.get('statuses/user_timeline', {}, function(err, item) {
+  	console.log(err, item);
+  	console.log("data: " + item[0].text);
+  	/*for( var i = 0; i < res.data.length; i++) {
+			console.log("object: " + res.data[i].message);
+			
+	}*/
+	tweetsData = item;
+  	res.render("index", {tweets_list: item});
   })});
 
 
