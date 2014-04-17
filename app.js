@@ -130,8 +130,8 @@ app.get('/sessions/connect', function(req, res){
 passport.use(new TwitterStrategy({
     consumerKey: 'M5fthvJjAiMD0ka4MaTOCcJ33',
     consumerSecret: 'DMkGty3P3VXtja20UJpfKmh5CxKR51QrBJrzLsxYllnkFQhSS2',
-    callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
-    //callbackURL: "http://statusmash.herokuapp.com/auth/twitter/callback"
+    //callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
+    callbackURL: "http://statusmash.herokuapp.com/auth/twitter/callback"
   },
   function(token, tokenSecret, profile, done) {
     // asynchronous verification, for effect...
