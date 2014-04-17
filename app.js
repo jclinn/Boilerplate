@@ -68,6 +68,8 @@ passport.deserializeUser(function(user, done) {
 
 //routes
 app.get('/', index.view);
+app.post('/auth/facebook/canvas',
+  passport.authenticate('facebook-canvas', {successRedirect: '/', failureRedirect: '/auth/facebook/cavas/autologin'}));
 
 app.get('/auth/facebook', function(req, res) {
 
