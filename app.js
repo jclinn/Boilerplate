@@ -257,7 +257,7 @@ app.get('/UserHasLoggedIn', function(req, res) {
 
 	//get basic user info
 	graph.get("/me", function(err, res) {
-		//console.log("name: " + res.name);
+		console.log("username: " + res.username);
 		fbName = res.name;
     fbUser = res.username;
 	})
@@ -302,7 +302,8 @@ setTimeout(function() { // allow callbacks to return from asynchronous call
   						status_list: dataOutside.data, 
   						name: fbName,
   						likes_list: fbLikes.data,
-              twitbutton: 'LOG INTO TWITTER' });
+              twitbutton: 'LOG INTO TWITTER',
+              username: fbUser });
 	  }, 1000);
 });
 
@@ -357,8 +358,7 @@ setTimeout(function() { // allow callbacks to return from asynchronous call
               status_list: dataOutside.data, 
               name: fbName,
               likes_list: fbLikes.data,
-              twitbutton: 'LOG INTO TWITTER',
-              username: fbUser });
+              twitbutton: 'LOG INTO TWITTER' });
     }, 1000);
 });
 
