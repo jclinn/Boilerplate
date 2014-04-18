@@ -247,6 +247,7 @@ app.get('/logout', function(req, res){
 var statusData = {};
 var dataOutside = {};
 var fbName = "Not Logged In";
+var fbUser = "";
 var fbLikes = {};
 var tweets = {};
 // user gets sent here after being authorized
@@ -258,6 +259,7 @@ app.get('/UserHasLoggedIn', function(req, res) {
 	graph.get("/me", function(err, res) {
 		//console.log("name: " + res.name);
 		fbName = res.name;
+    fbUser = res.username;
 	})
 
 	//console.log("fbname outside: " + fbName);
@@ -355,7 +357,8 @@ setTimeout(function() { // allow callbacks to return from asynchronous call
               status_list: dataOutside.data, 
               name: fbName,
               likes_list: fbLikes.data,
-              twitbutton: 'LOG INTO TWITTER' });
+              twitbutton: 'LOG INTO TWITTER',
+              username: fbUser });
     }, 1000);
 });
 
