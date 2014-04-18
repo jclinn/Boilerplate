@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>ChatterBot</title>  
+  <title>StatusMash</title>  
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -26,15 +26,13 @@
           <div id = "text"><span>
           <h4 id = "header1"><span>RECENT STATUS UPDATES</span> </h4>
           <div id="wrapper" >
-          
               {{#each status_list}}
               <p>{{message}}</p>
               {{/each}}
           </div>
           <break>
           <h4 id ="header1"><span>RECENT LIKES </span></h4>
-          <div id="wrapper" >
-          
+          <div id="wrapper" >       
               {{#each likes_list}}
               <p>{{name}}</p>
               {{/each}}
