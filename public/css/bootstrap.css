@@ -10,6 +10,7 @@ html {
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
+
 body {
   margin: 0;
 }
@@ -62,6 +63,7 @@ dfn {
 h1 {
   margin: .67em 0;
   font-size: 2em;
+  display:inline-block ;
 }
 mark {
   color: #000;
@@ -272,12 +274,24 @@ html {
 
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+
+@font-face {
+    font-family: 'OstrichSansRoundedMedium';
+    src: url('/fonts/ostrich-rounded-webfont.woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'OstrichSansRoundedMedium';
   font-size: 14px;
   line-height: 1.42857143;
   color: #333;
   background-color: #fff;
+  background-image: url("http://31.media.tumblr.com/eb4afb4938c153c4db2b85e67ac5f0eb/tumblr_mp6s1hAudo1st5lhmo1_1280.jpg");
+  background-repeat:no-repeat;
+  background-size:cover;
 }
 input,
 button,
@@ -443,11 +457,13 @@ h6 .small,
 }
 h1,
 .h1 {
-  font-size: 36px;
+  font-size: 60px;
+  font-weight: bolder;
 }
 h2,
 .h2 {
   font-size: 30px;
+  display:inline-block;
 }
 h3,
 .h3 {
@@ -5783,3 +5799,77 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+#header{
+  background-color: rgba(255,255,255,.4);
+  padding: 10px 2px;
+}
+
+#btncolor{
+  background-color: rgba(165,242,170, 0.8);
+  font-size: 30px;
+}
+
+#btncolor2{
+  background-color: rgba(165,242,170, 0.8);
+  font-size:30px;
+}
+
+#left {
+float:left;
+width:500px;
+display:inline-block;
+margin-left:20%;
+
+}
+
+#right {
+float:right;
+width:500px;
+display:inline-block;
+margin-right:10%;
+position:absolute;
+margin-top: 125px;
+}
+
+#theader{
+    width:400px;
+    font-size:30px;
+    font-weight:bold;
+}
+
+#header1, #header2{
+  font-size:30px;
+  font-weight:bold;
+}
+
+#wrapper{
+  font-size:20px    ;
+}
+
+#text{
+  background-color: rgba(255,255,255,.4);
+  padding: 10px 2px;
+  width:400px;
+  font-size:30px;
+  margin-top:-9px;
+  padding-left: 12px; 
+}
+#text2{
+   background-color: rgba(255,255,255,.4);
+  padding: 10px 2px;
+  width:400px;
+  margin-top:30px;
+  font-size: 30px;
+  padding-left:12px;
+}
+
+#container{
+  margin-top: 8px;
+}
+
+#login{
+  font-size:20px;
+  margin-left:12px
+}
+
+
