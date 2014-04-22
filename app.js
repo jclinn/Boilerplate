@@ -135,33 +135,12 @@ app.get('/auth/facebook', function(req, res) {
     , "client_secret":  conf.client_secret
     , "code":           req.query.code
   }, function (err, facebookRes) {
-  	//console.log("auth code: " + req.query.code);
   	token = req.query.code;
     res.redirect('/UserHasLoggedIn');
   });
 
 
 });
-
-/*
-var consumer = new oauth.OAuth(
-    "https://twitter.com/oauth/request_token", "https://twitter.com/oauth/access_token", 
-    T.consumer_key, T.consumer_secret, "1.0A", "https://statusmash.herokuapp.com", "HMAC-SHA1");
-
-//authentication for twitter
-app.get('/sessions/connect', function(req, res){
-  consumer.getOAuthRequestToken(function(error, oauthToken, oauthTokenSecret, results){
-    if (error) {
-      res.send("Error getting OAuth request token : " + util.inspect(error), 500);
-    } else {  
-      req.session.oauthRequestToken = oauthToken;
-      req.session.oauthRequestTokenSecret = oauthTokenSecret;
-      res.redirect("https://twitter.com/oauth/authorize?oauth_token="+req.session.oauthRequestToken);      
-    }
-  });
-});
-*/
-
 
 passport.use(new TwitterStrategy({
     consumerKey: 'M5fthvJjAiMD0ka4MaTOCcJ33',
@@ -195,13 +174,6 @@ app.get('/auth/twitter',
     // function will not be called.
   });
 
-app.post('/auth/twitter',
-  passport.authenticate('twitter'),
-  function(req, res){
-    // The request will be redirected to Twitter for authentication, so this
-    // function will not be called.
-  });
-
 // GET /auth/twitter/callback
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  If authentication fails, the user will be redirected back to the
@@ -222,25 +194,14 @@ app.post('/auth/twitter/callback',
 var tweetsData = {};
 app.get('/tweets', function(err, res){
   T.get('statuses/user_timeline', {}, function(err, item) {
-  	//console.log(err, item);
-  	//console.log("data: " + item[0].text);
 	tweetsData = item;
   	res.render("index", {twitbutton: 'LOGGED IN TWITTER', tweets_list: item, button: 'LOGIN TO FACEBOOK'});
   })});
 
-
 app.post('/tweets', function(err, res){
   T.get('statuses/user_timeline', {}, function(err, item) {
-    //console.log(err, item);
-    //console.log("data: " + item[0].text);
-  //tweetsData = item;
     res.render("index", {twitbutton: 'LOGGED IN TWITTER', tweets_list: item, button: 'LOGIN TO FACEBOOK'});
   })});
-
-app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
 
 
 
@@ -249,11 +210,12 @@ var dataOutside = {};
 var fbName = "Not Logged In";
 var fbUser = "";
 var fbLikes = {};
+var fbStatus = {};
 var tweets = {};
+
 // user gets sent here after being authorized
 app.get('/UserHasLoggedIn', function(req, res) {
 	token = graph.getAccessToken();
-	//console.log(" access token: " + token);
 
 	//get basic user info
 	graph.get("/me", function(err, res) {
@@ -262,42 +224,33 @@ app.get('/UserHasLoggedIn', function(req, res) {
     fbUser = res.username;
 	})
 
-	//console.log("fbname outside: " + fbName);
+  //get fb statuses (all info)
+  graph.get("/me/statuses", function( err, res ){
+    //console.log("statuses: " + res.data[0].likes.data[0].name);
+    fbStatus = res;
+  });
 
 	//get fb status
 	graph.get("/me/statuses?fields=message", function(err, res) {
-		//console.log(res);
-		//statusData = res;
 		//console.log("length: " + res.data.length);
 		for( var i = 0; i < res.data.length; i++) {
 			//console.log("object: " + res.data[i].message);
 			statusData[i] = res.data[i].message;
 		}
-	//	console.log(" statusDAta: " + statusData[0]);
 		dataOutside = res;
 	});
-	//console.log(" statusDAta: " + statusData[0]);
-	//statusData[0] = "Why you don't work?";
-	//console.log(" statusDAta: " + statusData[0]);
-	//console.log(" status Outside: " + dataOutside.data[0].message);
-	//res.render("index", data: 'data');
 
-	// get fb likes)
+	// get fb likes
 	graph.get("/me/likes", function(err, res) {
-		//console.log(res);
 		fbLikes = res;
-		//console.log("fb likes: " + fbLikes.data[0].name);
 	});
-	//console.log("fb likes outside " + fbLikes);
-	//console.log("fb likes example outside " + fbLikes.data[0].name);
+
 	res.redirect('/pull');
 });
 
-//console.log("token value: " + token);
-
 app.get('/pull', function(err, res) {
 setTimeout(function() { // allow callbacks to return from asynchronous call
-	  res.render("index", { title: "Logged In", 
+    res.render("index", { title: "Logged In", 
   						button: "LOGGED ON FB", 
   						status_list: dataOutside.data, 
   						name: fbName,
@@ -307,52 +260,38 @@ setTimeout(function() { // allow callbacks to return from asynchronous call
 	  }, 1000);
 });
 
+app.get('/pull/status', function(err, res) {
+  setTimeout(function() {
+    res.json(fbStatus.data);
+  }, 1000);
+});
 
+// for fb canvas (repeat of gets above)
 app.post('/UserHasLoggedIn', function(req, res) {
   token = graph.getAccessToken();
-  //console.log(" access token: " + token);
 
   //get basic user info
   graph.get("/me", function(err, res) {
-    //console.log("name: " + res.name);
     fbName = res.name;
   })
 
-  //console.log("fbname outside: " + fbName);
-
   //get fb status
   graph.get("/me/statuses?fields=message", function(err, res) {
-    //console.log(res);
-    //statusData = res;
-    //console.log("length: " + res.data.length);
-    for( var i = 0; i < res.data.length; i++) {
-      //console.log("object: " + res.data[i].message);
-      statusData[i] = res.data[i].message;
-    }
-  //  console.log(" statusDAta: " + statusData[0]);
     dataOutside = res;
   });
-  //console.log(" statusDAta: " + statusData[0]);
-  //statusData[0] = "Why you don't work?";
-  //console.log(" statusDAta: " + statusData[0]);
-  //console.log(" status Outside: " + dataOutside.data[0].message);
-  //res.render("index", data: 'data');
 
   // get fb likes)
   graph.get("/me/likes", function(err, res) {
-    //console.log(res);
     fbLikes = res;
-    //console.log("fb likes: " + fbLikes.data[0].name);
   });
-  //console.log("fb likes outside " + fbLikes);
-  //console.log("fb likes example outside " + fbLikes.data[0].name);
+
   res.redirect('/pull');
 });
 
-//console.log("token value: " + token);
 
 app.post('/pull', function(err, res) {
 setTimeout(function() { // allow callbacks to return from asynchronous call
+    res.json(dataOutside.data);
     res.render("index", { title: "Logged In", 
               button: "LOGGED ON FB", 
               status_list: dataOutside.data, 
@@ -362,13 +301,6 @@ setTimeout(function() { // allow callbacks to return from asynchronous call
     }, 1000);
 });
 
-
-/*app.get('/tweet', function(err, res) {
-	T.get('search/tweets', { q: 'banana since:2011-11-11', count: 100 }, function(err, reply) {
-        console.log("banana tweets: " + reply);
-	});
-	res.render('index', {title: "Not Connected", button: "LOGIN TO FACEBOOK"});
-});*/
 
 //set environment ports and start application
 app.set('port', process.env.PORT || 3000);

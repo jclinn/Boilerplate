@@ -15,9 +15,11 @@
     <![endif]-->        
       <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
       <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
+      <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 </head>
 
 <body>
+
         <div id = "left">
         <h1 id = "header" >your status.</h1> <h2>{{title}}</h2>
         <div id = "container">
@@ -52,6 +54,53 @@
        </div>
     </div>
   </div>
+
+  <div id= "visual">
+      <p class = "value">Visualization</p>
+ </div>
+    <script>
+      d3.json('/pull/status', function(error, data) {
+        // set canvas size
+        var svg = d3.select("#visual").append("svg:svg")
+        .attr("width", 700)
+        .attr("height", 500);
+
+        var info = []; //json object that will hold attributes for circle
+        for( var i = 0; i < data.length; i++ ) {
+          var item = {};
+          item.statuses = data[i].message; 
+          //console.log("status: " + item.statuses);
+          var count = 0;
+          if(data[i].likes) { // count the likes if any
+            for( var j = 0; j < data[i].likes.data.length; j++) {
+              count = count + 1;
+            }
+          }
+          item.likes_count = count;
+          item.xval = Math.floor( Math.random() * 700);
+          item.yval = Math.floor( Math.random() * 500);
+          //console.log("likes: " + item.likes_count);
+          info.push(item);
+
+        } 
+        
+        var color = d3.scale.category20(); // used to randomize color
+        var g = svg.selectAll("circle").data(info).enter().append("svg:g");
+
+        g.append("svg:circle") //add circles
+        .attr("r", function(d) {return (d.likes_count+1) * 5; })
+        .attr("cx", function(d) {return (d.xval); })
+        .attr("cy", function(d) {return (d.yval); })
+        .attr("fill",function(d,i){return color(i);});
+
+        g.append("svg:text") //add text
+        .text(function(d) {return d.statuses})
+        .attr("x", function(d) {return (d.xval); })
+        .attr("y", function(d) {return (d.yval); });
+
+ 
+      })
+    </script>
     <script>
       function fbLogin() {
         window.location.href = "/auth/facebook";
@@ -62,6 +111,5 @@
     </script>
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="js/bootstrap.js"></script>
-<script src="//statusmash.herokuapp.com/script.js"></script>
 </body>
 </html>
