@@ -289,7 +289,6 @@ body {
   line-height: 1.42857143;
   color: #333;
   background-color: #fff;
-  background-image: url("https://31.media.tumblr.com/eb4afb4938c153c4db2b85e67ac5f0eb/tumblr_mp6s1hAudo1st5lhmo1_1280.jpg");
   background-repeat:no-repeat;
   background-size:cover;
 }
@@ -5800,7 +5799,7 @@ button.close {
 }
 /*# sourceMappingURL=bootstrap.css.map */
 #header{
-  background-color: rgba(255,255,255,.4);
+  background-color: rgba(0,0,0,.4);
   padding: 10px 2px;
 }
 
@@ -5847,7 +5846,7 @@ margin-top: 125px;
 }
 
 #text{
-  background-color: rgba(255,255,255,.4);
+  background-color: rgba(0,0,0,.4);
   padding: 10px 2px;
   width:400px;
   font-size:30px;
@@ -5855,7 +5854,7 @@ margin-top: 125px;
   padding-left: 12px; 
 }
 #text2{
-   background-color: rgba(255,255,255,.4);
+   background-color: rgba(0,0,0,.4);
   padding: 10px 2px;
   width:400px;
   margin-top:30px;
@@ -5874,4 +5873,17 @@ margin-top: 125px;
 
 circle{
   cursor: pointer;
+}
+
+
+svg{
+  background-color: black;
+  position:relative;
+}
+
+.d3status{
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 10px;
+}
 }
