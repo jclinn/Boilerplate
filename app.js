@@ -219,7 +219,6 @@ app.get('/UserHasLoggedIn', function(req, res) {
 
 	//get basic user info
 	graph.get("/me", function(err, res) {
-		console.log("username: " + res.username);
 		fbName = res.name;
     fbUser = res.username;
 	})
