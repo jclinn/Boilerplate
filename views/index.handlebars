@@ -55,15 +55,15 @@
     </div>
   </div>
 
-  <div id= "visual">
+  <div class= "box" id= "visual">
       <p id ="information">Visualization</p>
  </div>
     <script>
       d3.json('/pull/status', function(error, data) {
         // set canvas size
         var svg = d3.select("#visual").append("svg:svg")
-        .attr("width", 700)
-        .attr("height", 500);
+        .attr("width", 1000)
+        .attr("height", 1000);
 
         var info = []; //json object that will hold attributes for circle
         for( var i = 0; i < data.length; i++ ) {
@@ -79,6 +79,17 @@
           item.likes_count = count;
           item.xval = Math.floor( Math.random() * 700);
           item.yval = Math.floor( Math.random() * 500);
+
+          //consistent coloring
+          var returnColor;
+          if(count <5) {returnColor ="blue";}
+          else if ( count >=5 && count <10) {returnColor = "green";}
+          else if (count >= 10 && count <20) {returnColor = "yellow";}
+          else if (count >= 20 && count <30) {returnColor = "orange";}
+          else if (count >=30 && count < 40) {returnColor = "red";}
+          else if (count >=40 ) {returnColor= "purple";}
+
+          item.colorVal = returnColor;
           //console.log("likes: " + item.likes_count);
           info.push(item);
 
@@ -91,7 +102,7 @@
         .attr("r", function(d) {return (d.likes_count+1) * 5; })
         .attr("cx", function(d) {return (d.xval); })
         .attr("cy", function(d) {return (d.yval); })
-        .attr("fill",function(d,i){return color(i);})
+        .attr("fill",function(d,i){return d.colorVal;})
         .on("click", function(d) {
             //update data
             var infoVal = document.getElementById('information');

@@ -5872,9 +5872,6 @@ margin-top: 125px;
   margin-left:12px
 }
 
-
-#visual{
-  margin: 50px;
-  background-color: rgb(255, 255, 255);
+circle{
+  cursor: pointer;
 }
-
