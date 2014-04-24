@@ -1,8 +1,7 @@
 README ASSIGNMENT #2
 ====================
-##Lynn Vo A09397255
-
-##Judy Lin A09582756
+###Lynn Vo A09397255
+###Judy Lin A09582756
 
 In our application, we considered the different design principles we learned about in lecture and in reading. 
 
@@ -19,6 +18,6 @@ From lecture (W2/T), we feel that we addressed many of the design principles Pro
 In addition the design principles mentioned in lecture, we also feel that our application reflected Nielson and Molich's Design Principles as seen in the documentation.
 A primary principle we feel that our app most strongly exhibits from the reading is:
 
-__ Aesthetic and minimalist design:__ Our application maintains a constant theme throughout. We feel that it is fairly minimalist; it provides only the most relevant information to the user and has fairly little clutter. 
+* __Aesthetic and minimalist design:__ Our application maintains a constant theme throughout. We feel that it is fairly minimalist; it provides only the most relevant information to the user and has fairly little clutter. 
 
 
