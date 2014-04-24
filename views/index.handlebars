@@ -24,7 +24,7 @@
  <div id= "visual">
       <h1 id = "visualheader"> your visual.</h1>
       <p class = "d3status" id ="information"> The status of your status.</p>
-       <p button onclick="fbLogin()" class="btn" id= "btncolor1">LOGIN WITH FACEBOOK</button></p>
+       <p button onclick="fbLogin()" class="btn" id= "btncolor1">LOGIN WITH FACEBOOK</button></p><h3 id = "loginidtop">logged in as: {{name}}</h3>
        <br>
  </div>
         <div id = "left">
@@ -85,12 +85,12 @@
 
           //consistent coloring
           var returnColor;
-          if(count <5) {returnColor ="blue";}
-          else if ( count >=5 && count <10) {returnColor = "green";}
-          else if (count >= 10 && count <20) {returnColor = "yellow";}
-          else if (count >= 20 && count <30) {returnColor = "#3B5998";}
-          else if (count >=30 && count < 40) {returnColor = "red";}
-          else if (count >=40 ) {returnColor= "purple";}
+          if(count <5) {returnColor ="#ffffff";}
+          else if ( count >=5 && count <10) {returnColor = "#6C89C6";}
+          else if (count >= 10 && count <20) {returnColor = "#3B5998";}
+          else if (count >= 20 && count <30) {returnColor = "#223358";}
+          else if (count >=30 && count < 40) {returnColor = "#111A2C";}
+          else if (count >=40 ) {returnColor= "#06090F";}
 
           item.colorVal = returnColor;
           //console.log("likes: " + item.likes_count);
