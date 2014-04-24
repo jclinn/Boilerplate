@@ -5908,6 +5908,9 @@ svg{
   background-color: rgba(0,0,0,0.3);
   position:relative;
 }
+#key{
+  margin-left:20%;
+}
 
 .d3status{
   font-size: 30px;
@@ -5923,6 +5926,7 @@ margin-top: 30px;
 margin-bottom: -20px;
 font-size: 25px;
 color:#3B5998;
+width:900px;
 
 }
 
