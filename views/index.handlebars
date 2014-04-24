@@ -21,12 +21,12 @@
 
 <body>
 
+        <div id ="container">
         <div id = "left">
         <h1 id = "header" >your status.</h1> <h2>{{title}}</h2>
         <div id = "container">
-          <button onclick="fbLogin()" class="btn" id= "btncolor">LOGIN WITH FACEBOOK</button>
-          <p id = "login">logged in as: {{name}}</p>
-          <p id = "login"> username: {{username}}</p>
+          <button onclick="fbLogin()" class="btn" id= "btncolor">LOGIN WITH FACEBOOK</button> <h3 id = "loginid">logged in as: {{name}}</h3>
+          <!-- <id = "login"> username: {{username}}</p> -->
           <div id = "text"><span>
           <h4 id = "header1"><span>RECENT STATUS UPDATES</span> </h4>
           <div id="wrapper" >
@@ -44,7 +44,8 @@
       </div>
     </div>
     <div id= "visual">
-      <p class = "d3status" id ="information">Visualization</p>
+      <h1 id = "visualheader"> your visual.</h1>
+      <p class = "d3status" id ="information"> The status of your status.</p>
  </div>
   </div>
     <div id = "right">
@@ -58,13 +59,14 @@
        </div>
     </div>
   </div>
+</div>
 
     <script>
       d3.json('/pull/status', function(error, data) {
         // set canvas size
         var svg = d3.select("#visual").append("svg:svg")
-        .attr("width", 700)
-        .attr("height", 500);
+        .attr("width", 900)
+        .attr("height", 400);
 
         var info = []; //json object that will hold attributes for circle
         for( var i = 0; i < data.length; i++ ) {

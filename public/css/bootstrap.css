@@ -5799,8 +5799,13 @@ button.close {
 }
 /*# sourceMappingURL=bootstrap.css.map */
 #header{
-  background-color: rgba(0,0,0,.4);
   padding: 10px 2px;
+}
+
+#visualheader{
+  padding: 10px 2px;
+  margin-top:20%;
+  margin-bottom:-20px;
 }
 
 #btncolor{
@@ -5850,7 +5855,7 @@ margin-top: 125px;
   padding: 10px 2px;
   width:400px;
   font-size:30px;
-  margin-top:-9px;
+  margin-top:45px;
   padding-left: 12px; 
 }
 #text2{
@@ -5866,9 +5871,12 @@ margin-top: 125px;
   margin-top: 8px;
 }
 
-#login{
+#loginid{
   font-size:20px;
-  margin-left:12px
+  margin-left:12px;
+  margin-left: 210px;
+  margin-top: -38px;
+}
 }
 
 circle{
@@ -5882,8 +5890,12 @@ svg{
 }
 
 .d3status{
-  font-size: 20px;
+  font-size: 30px;
   font-weight: bold;
   padding-top: 10px;
+  margin-bottom:-5px;
 }
+
+#test{
+  margin-top: 15%;
 }
