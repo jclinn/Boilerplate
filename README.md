@@ -1,7 +1,7 @@
 README ASSIGNMENT #2
 ====================
-###Lynn Vo A09397255
-###Judy Lin A09582756
+Lynn Vo A09397255
+Judy Lin A09582756
 
 In our application, we considered the different design principles we learned about in lecture and in reading. 
 
