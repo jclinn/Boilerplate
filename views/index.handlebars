@@ -21,10 +21,14 @@
 
 <body>
 
-        <div id ="container">
+ <div id= "visual">
+      <h1 id = "visualheader"> your visual.</h1>
+      <p class = "d3status" id ="information"> The status of your status.</p>
+       <p button onclick="fbLogin()" class="btn" id= "btncolor1">LOGIN WITH FACEBOOK</button></p>
+       <br>
+ </div>
         <div id = "left">
         <h1 id = "header" >your status.</h1> <h2>{{title}}</h2>
-        <div id = "container">
           <button onclick="fbLogin()" class="btn" id= "btncolor">LOGIN WITH FACEBOOK</button> <h3 id = "loginid">logged in as: {{name}}</h3>
           <!-- <id = "login"> username: {{username}}</p> -->
           <div id = "text"><span>
@@ -43,10 +47,7 @@
           </div> -->
       </div>
     </div>
-    <div id= "visual">
-      <h1 id = "visualheader"> your visual.</h1>
-      <p class = "d3status" id ="information"> The status of your status.</p>
- </div>
+  </div>
   </div>
     <div id = "right">
     <button onclick="twitLogin()" class="btn" id ="btncolor2">LOGIN WITH TWITTER</button>
@@ -59,7 +60,6 @@
        </div>
     </div>
   </div>
-</div>
 
     <script>
       d3.json('/pull/status', function(error, data) {
@@ -86,7 +86,7 @@
           //consistent coloring
           var returnColor;
           if(count <5) {returnColor ="blue";}
-          else if ( count >=5 && count <10) {returnColor = "green";}
+          else if ( count >=5 && count <10) {returnColor = "#35998";}
           else if (count >= 10 && count <20) {returnColor = "yellow";}
           else if (count >= 20 && count <30) {returnColor = "orange";}
           else if (count >=30 && count < 40) {returnColor = "red";}
