@@ -5918,6 +5918,14 @@ svg{
   margin-left: 230px;
 }
 
+.change{
+margin-top: 30px;
+margin-bottom: -20px;
+font-size: 25px;
+color:#3B5998;
+
+}
+
 #test{
   margin-top: 15%;
 }

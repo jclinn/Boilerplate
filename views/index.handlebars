@@ -23,8 +23,9 @@
 
  <div id= "visual">
       <h1 id = "visualheader"> your visual.</h1>
-      <p class = "d3status" id ="information"> The status of your status.</p>
+      <p class = "d3status"> The status of your status.</p>
        <p button onclick="fbLogin()" class="btn" id= "btncolor1">LOGIN WITH FACEBOOK</button></p><h3 id = "loginidtop">logged in as: {{name}}</h3>
+       <p class ="change" id ="information"> click to see your status and its info here! </p>
        <br>
  </div>
         <div id = "left">
@@ -109,7 +110,7 @@
         .on("click", function(d) {
             //update data
             var infoVal = document.getElementById('information');
-            infoVal.innerHTML="Status: " + d.statuses + " likes: " + d.likes_count;
+            infoVal.innerHTML="Status: " + d.statuses + nbsp& + " likes: " + d.likes_count;
         
         });
 
